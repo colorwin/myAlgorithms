@@ -41,17 +41,19 @@ function getMaxThings (i, j, matrix, things) {
     return lastGoods
 }
 
-function maxBags(things) {
+function maxBags(things, limit, step) {
     const matrix = []
     for (var i = 0; i < things.length; i++) {
         matrix[i] = []
-        for (var j = 1; j <= 6; j++) {
+        let j = step
+        while (j <= limit) {
             matrix[i][j] = getMaxThings(i, j, matrix, things)
+            j = j + step
         }
     }
     return matrix
 }
 
-const result = maxBags(allThing)
+const result = maxBags(allThing, 6, 1)
 
 console.log(result)
