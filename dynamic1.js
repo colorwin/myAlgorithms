@@ -12,8 +12,7 @@ const empty = {
     value: 0,
 };
 
-function getElseGoods(i, j, matrix, things) {
-    const thing = things[i]
+function getElseGoods(i, j, matrix, thing) {
     const elseIndex = j - thing.weight
     if (matrix[i-1] && matrix[i-1][elseIndex]) {
         return matrix[i - 1][elseIndex];
@@ -30,7 +29,7 @@ function getLastGoods(i, j, matrix) {
 
 function getMaxThings (i, j, matrix, things) {
     const thing = things[i]
-    const elseGoods = getElseGoods(i, j, matrix, things)
+    const elseGoods = getElseGoods(i, j, matrix, thing)
     const lastGoods = getLastGoods(i, j, matrix)
     const newValue = thing.value + elseGoods.value
     if (thing.weight <= j && newValue > lastGoods.value) {
@@ -45,10 +44,8 @@ function getMaxThings (i, j, matrix, things) {
 function maxBags(things) {
     const matrix = []
     for (var i = 0; i < things.length; i++) {
+        matrix[i] = []
         for (var j = 1; j <= 6; j++) {
-            if (!matrix[i]) {
-                matrix[i] = []
-            }
             matrix[i][j] = getMaxThings(i, j, matrix, things)
         }
     }
