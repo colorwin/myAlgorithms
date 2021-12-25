@@ -9,68 +9,42 @@ var things = [water, book, food, jack, cenema]
 
 var matrix = []
 
-function getMaxThings (i, j) {
+const empty = {
+    names: [],
+    value: 0,
+};
+
+function getElseGoods(i, j) {
     const thing = things[i]
-    if (thing.weight <= j) {
-        if (matrix[i-1]) {
-            const elseGoods = matrix[i - 1][j - thing.weight] || {
-                names: [],
-                value: 0,
-            }
-            const newValue = thing.value + elseGoods.value
-            const lastGoods = matrix[i-1][j]
-            if (newValue > lastGoods.value) {
-                return {
-                    names: [...elseGoods.names, thing.name],
-                    value: newValue
-                }
-            }
-            return lastGoods
-        }
-        return {
-            names: [thing.name],
-            value: thing.value
-        }
+    const elseIndex = j - thing.weight
+    if (matrix[i-1] && matrix[i-1][elseIndex]) {
+        return matrix[i - 1][elseIndex];
     }
-    if (matrix[i-1] && matrix[i-1][j]) {
-      return matrix[i-1][j]
+    return empty;
+}
+
+function getLastGoods(i, j) {
+    if (matrix[i - 1] && matrix[i-1][j]) {
+         return matrix[i-1][j]
     }
-    return {
-        names: [],
-        value: 0,
-    };
+    return empty;
 }
 
 function getMaxThings (i, j) {
     const thing = things[i]
+    const elseGoods = getElseGoods(i, j)
+    const lastGoods = getLastGoods(i, j)
     if (thing.weight <= j) {
-        if (matrix[i-1]) {
-            const elseGoods = matrix[i - 1][j - thing.weight] || {
-                names: [],
-                value: 0,
+        const newValue = thing.value + elseGoods.value
+        if (newValue > lastGoods.value) {
+            return {
+                names: [...elseGoods.names, thing.name],
+                value: newValue
             }
-            const newValue = thing.value + elseGoods.value
-            const lastGoods = matrix[i-1][j]
-            if (newValue > lastGoods.value) {
-                return {
-                    names: [...elseGoods.names, thing.name],
-                    value: newValue
-                }
-            }
-            return lastGoods
         }
-        return {
-            names: [thing.name],
-            value: thing.value
-        }
+        return lastGoods
     }
-    if (matrix[i-1] && matrix[i-1][j]) {
-      return matrix[i-1][j]
-    }
-    return {
-        names: [],
-        value: 0,
-    };
+    return lastGoods;
 }
 
 for (var i = 0; i < things.length; i++) {
