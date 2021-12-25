@@ -5,16 +5,14 @@ var book = {weight:1, value:3, name: 'book'}
 var food = {weight:2, value:9, name: 'food'}
 var jack = {weight:2, value:5, name: 'jack'}
 var cenema = {weight:1, value:6, name: 'cenema'}
-var things = [water, book, food, jack, cenema]
-
-var matrix = []
+var allThing = [water, book, food, jack, cenema]
 
 const empty = {
     names: [],
     value: 0,
 };
 
-function getElseGoods(i, j) {
+function getElseGoods(i, j, matrix, things) {
     const thing = things[i]
     const elseIndex = j - thing.weight
     if (matrix[i-1] && matrix[i-1][elseIndex]) {
@@ -23,37 +21,40 @@ function getElseGoods(i, j) {
     return empty;
 }
 
-function getLastGoods(i, j) {
+function getLastGoods(i, j, matrix) {
     if (matrix[i - 1] && matrix[i-1][j]) {
          return matrix[i-1][j]
     }
     return empty;
 }
 
-function getMaxThings (i, j) {
+function getMaxThings (i, j, matrix, things) {
     const thing = things[i]
-    const elseGoods = getElseGoods(i, j)
-    const lastGoods = getLastGoods(i, j)
-    if (thing.weight <= j) {
-        const newValue = thing.value + elseGoods.value
-        if (newValue > lastGoods.value) {
-            return {
-                names: [...elseGoods.names, thing.name],
-                value: newValue
+    const elseGoods = getElseGoods(i, j, matrix, things)
+    const lastGoods = getLastGoods(i, j, matrix)
+    const newValue = thing.value + elseGoods.value
+    if (thing.weight <= j && newValue > lastGoods.value) {
+        return {
+            names: [...elseGoods.names, thing.name],
+            value: newValue
+        }
+    }
+    return lastGoods
+}
+
+function maxBags(things) {
+    const matrix = []
+    for (var i = 0; i < things.length; i++) {
+        for (var j = 1; j <= 6; j++) {
+            if (!matrix[i]) {
+                matrix[i] = []
             }
+            matrix[i][j] = getMaxThings(i, j, matrix, things)
         }
-        return lastGoods
     }
-    return lastGoods;
+    return matrix
 }
 
-for (var i = 0; i < things.length; i++) {
-    for (var j = 1; j <= 6; j++) {
-        if (!matrix[i]) {
-            matrix[i] = []
-        }
-        matrix[i][j] = getMaxThings(i, j)
-    }
-}
+const result = maxBags(allThing)
 
-console.log(matrix, matrix[things.length - 1][6])
+console.log(result)
