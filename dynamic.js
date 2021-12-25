@@ -41,38 +41,6 @@ function getMaxThings (i, j) {
     };
 }
 
-function getMaxThings (i, j) {
-    const thing = things[i]
-    if (thing.weight <= j) {
-        if (matrix[i-1]) {
-            const elseGoods = matrix[i - 1][j - thing.weight] || {
-                names: [],
-                value: 0,
-            }
-            const newValue = thing.value + elseGoods.value
-            const lastGoods = matrix[i-1][j]
-            if (newValue > lastGoods.value) {
-                return {
-                    names: [...elseGoods.names, thing.name],
-                    value: newValue
-                }
-            }
-            return lastGoods
-        }
-        return {
-            names: [thing.name],
-            value: thing.value
-        }
-    }
-    if (matrix[i-1] && matrix[i-1][j]) {
-      return matrix[i-1][j]
-    }
-    return {
-        names: [],
-        value: 0,
-    };
-}
-
 for (var i = 0; i < things.length; i++) {
     for (var j = 1; j <= 6; j++) {
         if (!matrix[i]) {
