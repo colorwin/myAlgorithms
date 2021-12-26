@@ -9,5 +9,4 @@ function divideSequre(a, b) {
   return divideSequre(newShort, short);
 }
 
-const result = divideSequre(1680, 640);
-console.log(result === 80, result);
+module.exports = divideSequre;

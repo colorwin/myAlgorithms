@@ -27,5 +27,4 @@ function longCommonStrings (a, b) {
     return max;
 }
 
-const result = longCommonStrings('abcdhish', 'abcdfish')
-console.log(result === 4, result)
+module.exports = longCommonStrings

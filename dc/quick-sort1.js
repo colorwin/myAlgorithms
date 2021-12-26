@@ -20,5 +20,4 @@ function quickSort(array) {
   return [...quickSort(left), main, ...quickSort(right)];
 }
 
-const result = quickSort([6, 2, 3, 1, 5, 8, 7, 10, 9]);
-console.log(result);
+module.exports = quickSort;
