@@ -51,7 +51,7 @@ function maxBags(things, limit, step) {
       j = j + step;
     }
   }
-  return matrix;
+  return matrix[i - 1][j - 1];
 }
 
 const result = maxBags(allThing, 6, 1);
