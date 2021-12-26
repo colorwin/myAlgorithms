@@ -1,4 +1,3 @@
-const { expect } = require('@jest/globals')
 const quickSort = require('./quick-sort')
 
 test('get correct result', () => {

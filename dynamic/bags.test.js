@@ -1,5 +1,5 @@
 const { expect } = require('@jest/globals');
-const maxBags = require('./bags1');
+const maxBags = require('./bags');
 
 var water = { weight: 3, value: 10, name: "water" };
 var book = { weight: 1, value: 3, name: "book" };

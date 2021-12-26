@@ -1,4 +1,4 @@
-const longCommonStrings = require('./long-common-strings');
+const longCommonStrings = require('./long-common-strings1');
 
 test('should get correct result', () => {
     const result = longCommonStrings('hish', 'fish')

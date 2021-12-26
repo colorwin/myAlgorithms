@@ -1,23 +1,23 @@
-function quickSort (array) {
-    if (array.length === 0) {
-        return array
+function quickSort(array) {
+  if (array.length === 0 || array.length === 1) {
+    return array;
+  }
+  const mainIndex = Math.floor(Math.random(array.length - 1));
+  const main = array[mainIndex];
+  const left = [];
+  const right = [];
+  for (let i = 0; i < array.length; i++) {
+    if (i === mainIndex) {
+      continue;
     }
-    if (array.length === 1) {
-        return array
+    const item = array[i];
+    if (item < main) {
+      left.push(item);
+    } else {
+      right.push(item);
     }
-    const main = array[0]
-    const left = []
-    const right = []
-    for (let i = 1; i < array.length; i++) {
-        const item = array[i];
-        if (item < main) {
-            left.push(item)
-        } else {
-            right.push(item)
-        }
-    }
-    return [...quickSort(left), main, ...quickSort(right)];
+  }
+  return [...quickSort(left), main, ...quickSort(right)];
 }
 
 module.exports = quickSort;
-
