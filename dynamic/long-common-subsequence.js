@@ -33,8 +33,10 @@ function longCommonSubsequence(a, b) {
       matrix[i][j] = getMax(i, j, matrix, a, b);
     }
   }
-  return matrix[i - 1][j - 1];
+  if (matrix[i-1] && matrix[i - 1][j - 1]) {
+    return matrix[i - 1][j - 1];
+  }
+  return 0;
 }
 
-const result = longCommonSubsequence("abcdhish", "abcdfish");
-console.log(result === 7, result);
+module.exports = longCommonSubsequence;
